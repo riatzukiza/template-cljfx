@@ -1,0 +1,21 @@
+(ns template-cljfx.law.domain-schema-test
+  "Contract tests for Malli domain schemas."
+  (:require
+   [clojure.test :refer [deftest is testing]]
+   [malli.core :as m]
+   [template-cljfx.law.domain-schema :as sut]))
+
+(deftest counter-state-schema-test
+  (testing "accepts valid state"
+    (is (m/validate sut/CounterState {:count 0})))
+  (testing "rejects negative count"
+    (is (not (m/validate sut/CounterState {:count -1}))))
+  (testing "rejects missing count"
+    (is (not (m/validate sut/CounterState {})))))
+
+(deftest validate!-test
+  (testing "returns value when valid"
+    (is (= {:count 5} (sut/validate! sut/CounterState {:count 5}))))
+  (testing "throws on invalid value"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (sut/validate! sut/CounterState {:count -1})))))

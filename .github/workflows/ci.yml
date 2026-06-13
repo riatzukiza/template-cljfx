@@ -1,0 +1,25 @@
+name: CI
+
+# Master orchestrator — runs lint then all test suites in parallel,
+# then build. Fail fast: lint gates everything.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    uses: ./.github/workflows/lint.yml
+
+  test:
+    name: All Tests
+    needs: lint
+    uses: ./.github/workflows/test.yml
+
+  build:
+    name: Build
+    needs: test
+    uses: ./.github/workflows/build.yml

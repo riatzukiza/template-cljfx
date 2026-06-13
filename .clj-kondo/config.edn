@@ -1,0 +1,19 @@
+{;; ── Optional linters enabled per house rules ──────────────────────────────
+ :linters
+ {:missing-docstring          {:level :warning}
+  :unused-value               {:level :warning}
+  :shadowed-var               {:level :warning}
+  :used-underscored-binding   {:level :warning}
+  :warn-on-reflection         {:level :warning}
+  :unsorted-required-namespaces {:level :warning}
+  :refer                      {:level :warning
+                               :exclude [clojure.test]}}
+
+ ;; ── Ban broad :refer :all ──────────────────────────────────────────────────
+ :forbidden-ns-aliases {}
+
+ ;; ── Custom macro shapes ───────────────────────────────────────────────────
+ ;; Register any project macros here so kondo understands their shape:
+ ;; :lint-as {my.ns/defcomponent clj-kondo.lint-as/def-catch-all}
+ :lint-as {}
+}
